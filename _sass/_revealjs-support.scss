@@ -1,0 +1,71 @@
+// Fix width of incremental Reveal.js sections
+// Align Reveal.js presenter notes as regular paragraphs.
+// Alternatively, uncomment the second line to hide them completely.
+div.incremental,
+div.notes {
+    @extend section;
+}
+
+// <hr> is used by reveal.js to separate slides so there's a lot
+//  of them going around.
+hr {
+    border: 0;
+}
+
+.notes hr {
+    clear: both;
+}
+
+// Support Pandoc columns for reveal.js
+.columns {
+    min-width: calc(100% + 1.3em);
+    margin-left: -1.3em;
+    .column  {
+        display: block;
+        clear: both;
+        min-width: 90%;
+        margin-right: 10%;
+        @include breakpoint($medium) {
+            float: left;
+            clear: none;
+            margin-right: 0;
+            min-width: unset;
+            padding-right: 1.3em;
+        }
+        figure {
+            margin-top: 0;
+        }
+    }
+    &.subfigures {
+        img,
+        video {
+            // This is needed for letter captions to flush top.
+            max-width: calc(100% - 0.1em);
+        }
+    }
+    &:not(.subfigures) figcaption,
+    &.subfigures.full p:last-of-type {
+        margin-right: 0;
+        padding-left: 0;
+        width: 100%;
+        @include breakpoint($large) {
+            max-width: $right-sidebar-width-narrow;
+        }
+        @include breakpoint($x-large) {
+            max-width: $right-sidebar-width;
+        }
+    }
+    &:after {
+        content: " ";
+        display: block;
+        clear: both;
+        width: 100%;
+    }
+}
+
+// Hide stuff that should only appear on slides
+.slide-only {
+    display: none;
+    visibility: hidden;
+}
+// vim: set shiftwidth=4 foldmethod=indent :

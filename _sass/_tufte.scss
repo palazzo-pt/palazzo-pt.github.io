@@ -1,0 +1,634 @@
+@charset "UTF-8";
+
+body {
+    font-variant: oldstyle-nums proportional-nums;
+    counter-reset: sidenote-counter;
+}
+
+/***************************
+ * Minimal-Mistakes resets *
+ ***************************/
+a.site-title {
+    font-family: $global-font-family;
+}
+
+h1,
+.page__inner-wrap h1 {
+    font-family: $serif;
+    font-weight: $header-font-weight;
+    p.subtitle {
+        font-style: italic;
+        display: block;
+        em {
+            font-style: normal;
+        }
+    }
+}
+
+h2 {
+    font-family: $serif;
+    font-style: $header-font-style;
+    font-weight: $header-font-weight;
+    em {
+        font-style: normal;
+    }
+}
+
+h4 {
+    font-family: $sans-serif;
+    &.page__related-title,
+    &.page__share-title {
+        font-size: $h-size-5;
+    }
+}
+
+.page__content {
+    h3 {
+        font-weight: 400;
+        em {
+            font-style: normal;
+        }
+        font-style: $header-font-style;
+        @include breakpoint($large) {
+            font-size: $type-size-5;
+            float: left;
+            margin: 0 0 0 calc(0px - #{$right-sidebar-width-narrow});
+            width: calc(#{$right-sidebar-width-narrow} - 1em);
+        }
+        @include breakpoint($x-large) {
+            margin-left: calc(0px - #{$right-sidebar-width});
+            width: calc(#{$right-sidebar-width} - 1em);
+        }
+    }
+    h4,
+    h5,
+    h6,
+    p,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul {
+        font-family: $global-font-family;
+        font-size: $type-size-5;
+        line-height: 1.3;
+    }
+    h4,
+    dt {
+        @extend .newthought;
+        font-weight: $meta-font-weight;
+    }
+}
+
+li ul,
+li ol {
+    margin: $indent-var 0;
+}
+
+ul li,
+ol li,
+ul li ul,
+ol li ol {
+    margin: 0;
+}
+
+// Good alignment of dl
+div > dl {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+div > dl > dt:first-child,
+li > dl > dt:first-child {
+    margin-top: 0;
+}
+
+/* 50 + 5 == 55, to be the same width as paragraph */
+section > dl,
+section > ol,
+section > ul {
+    -webkit-padding-start: 5%;
+    @include breakpoint($large) {
+        padding-left: 0;
+    }
+}
+
+/*********************
+ * Chapter Epigraphs *
+ *********************/
+div.epigraph {
+    margin: 5em 0;
+}
+
+/******************************
+ * CSL styling from Tufte-CSS *
+ ******************************/
+div.csl-bib-body {
+    font-size: $type-size-5;
+    line-height: 1.3;
+}
+
+div.csl-entry {
+    clear: both;
+    margin-top: .5rem;
+}
+
+.hanging div.csl-entry {
+    margin-left: $type-size-4;
+    text-indent: -2rem;
+}
+
+div.csl-left-margin {
+    min-width: $type-size-4;
+    float: left;
+}
+
+div.csl-right-inline {
+    margin-left: $type-size-4;
+    padding-left: 1rem;
+}
+
+div.csl-indent {
+    margin-left: $type-size-4;
+}
+
+div.hanging-indent{
+    margin-left: 1.5rem;
+    text-indent: -1.5rem;
+}
+
+/**************************
+ * Figures and marginalia *
+ **************************/
+figcaption,
+.sidenote-number,
+.sidenote-number:after,
+.sidenote:before {
+    font-weight: 500;
+}
+
+video {
+    @extend img;
+}
+
+.fluid-width-video-wrapper {
+    iframe {
+        border-radius: 5px;
+    }
+    margin-bottom: 1em;
+}
+
+span.sidenote,
+span.marginnote {
+    display: none;
+    vertical-align: baseline;
+    position: relative;
+}
+
+span.sidenote,
+span.marginnote,
+.subfigures p:last-of-type {
+    @extend figcaption;
+}
+
+.align-right,
+figcaption {
+    @include breakpoint($large) {
+        display: block;
+        float: right;
+        clear: right;
+        margin: 0 calc(0px - #{$right-sidebar-width-narrow}) 0.3rem auto;
+        padding-left: 1rem;
+        width: $right-sidebar-width-narrow;
+        figcaption {
+            margin: 0 0 0.3rem 0;
+            padding-left: 0;
+        }
+    }
+    @include breakpoint($x-large) {
+        margin-right: calc(0px - #{$right-sidebar-width});
+        width: $right-sidebar-width;
+    }
+}
+
+.margin-toggle:checked + .sidenote,
+.margin-toggle:checked + .marginnote {
+    @extend .notice;
+    display: block;
+}
+
+.sidenote-number {
+    counter-increment: sidenote-counter;
+    &:after {
+        content: counter(sidenote-counter);
+        font-size: $type-size-6;
+        top: -0.5rem;
+        left: 0.1rem;
+    }
+}
+
+.sidenote-number:after,
+.sidenote:before {
+    position: relative;
+    vertical-align: baseline;
+}
+
+.sidenote {
+    text-indent: -0.4rem;
+}
+
+.sidenote:before {
+    content: counter(sidenote-counter) " ";
+    left: -0.4rem;
+    top: -0.5rem;
+}
+
+label {
+    cursor: pointer;
+}
+
+blockquote .sidenote,
+blockquote .marginnote {
+    font-style: normal;
+    @include breakpoint($large) {
+        margin-right: calc(0px - #{$right-sidebar-width-narrow} - 2rem);
+    }
+    @include breakpoint($x-large) {
+        margin-right: calc(0px - #{$right-sidebar-width} - 2rem);
+    }
+}
+
+input.margin-toggle {
+    display: none;
+}
+
+label.sidenote-number {
+    display: inline;
+}
+
+label.margin-toggle:not(.sidenote-number) {
+    display: inline;
+    @include breakpoint($large) {
+        display: none;
+    }
+}
+
+/**************
+ * Typography *
+ **************/
+.newthought {
+    font-variant: small-caps;
+    font-size: $type-size-5;
+    .smallcaps {
+        text-transform: uppercase;
+    }
+}
+
+.sans {
+    font-family: $sans-serif-narrow;
+    letter-spacing: .03em;
+}
+
+.section ul {
+    list-style-type: none;
+    &:not(.nav__items) li {
+        text-indent: calc(0px - #{$type-size-6});
+        &::before {
+            content: "› ";
+        }
+        p {
+            text-indent: 0;
+            &:first-child {
+                display: inline;
+            }
+        }
+    }
+}
+
+/* Typographically correct small caps. */
+.smallcaps {
+    font-variant: all-small-caps;
+}
+
+sup {
+    font-weight: $meta-font-weight;
+}
+
+blockquote {
+    border-color: $background-color;
+    em {
+        font-style: normal;
+    }
+    footer {
+        font-size: $type-size-6;
+        font-weight: 500;
+    }
+}
+
+// A class to get outset dates in a résumé or CV
+.cv {
+    dt {
+        font-variant: tabular-nums oldstyle-nums all-small-caps;
+        font-weight: 400;
+        margin-left: -6rem;
+        margin-top: 0;
+    }
+    dd {
+        margin-left: 0;
+    }
+}
+
+// A table with a totals line
+table.total {
+    font-variant: tabular-nums oldstyle-nums;
+    tbody tr:last-of-type td {
+        border-top: 1px solid $text-color;
+    }
+}
+
+/*
+ * Enable hyphens on supported platforms
+ */
+article {
+    -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+}
+/* Sidenotes end up with a bunch of hyphens because they're so small */
+.sidenote,
+.marginnote {
+  hyphens: none;
+}
+
+/********************
+ * Widths of things *
+ ********************/
+div.table-wrapper {
+    overflow-x: auto;
+}
+
+.full {
+    clear: both;
+    @include breakpoint($large) {
+        display: block; // Prevent float overlap
+        clear:both;
+        margin-right: calc(0px - #{$right-sidebar-width-narrow}) !important;
+        max-width: calc(100% + #{$right-sidebar-width-narrow});
+        width: calc(100% + #{$right-sidebar-width-narrow});
+        &.subfigures p:last-of-type,
+        figcaption {
+            margin-right: 0;
+        }
+    }
+    @include breakpoint($x-large) {
+        margin-right: calc(0px - #{$right-sidebar-width}) !important;
+        max-width: calc(100% + #{$right-sidebar-width});
+        width: calc(100% + #{$right-sidebar-width});
+    }
+}
+
+.iframe-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+}
+
+.iframe-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+div.fluid-width-video-wrapper {
+    float: left; // Allow caption to align to top of iframe container
+}
+
+.layout--splash,
+.wide {
+    figcaption,
+    .align-right {
+        @include breakpoint($large) {
+            margin-right: 0;
+        }
+        @include breakpoint($x-large) {
+            margin-right: 0;
+        }
+    }
+}
+
+/*******************************
+ * Horizontal scrolling frames *
+ *******************************
+ *
+ * How-to: (the full class is optional but makes sense here)
+ * <div id="#fig:name" class="full">
+ *   <div class="h-scroll">
+ *     <img src="https://example.com/image.jpg">
+ *   </div>
+ * </div>
+ *******************************/
+.h-scroll {
+    overflow: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
+    height: auto;
+    img {
+        max-width: none;
+        height: 720px;
+        max-height: 90vh;
+    }
+}
+
+/*****************************************************
+ * Links: replicate underline that clears descenders *
+ *****************************************************/
+a:hover {
+    text-decoration: none !important;
+}
+
+a:link,
+a:visited {
+    color: inherit;
+}
+
+//a:link,
+.tufte-underline,
+.hover-tufte-underline:hover {
+    text-decoration: none;
+    background: -webkit-linear-gradient($background-color, $background-color), -webkit-linear-gradient($background-color, $background-color), -webkit-linear-gradient(currentColor, currentColor);
+    background: linear-gradient($background-color, $background-color), linear-gradient($background-color, $background-color), linear-gradient(currentColor, currentColor);
+    -webkit-background-size: 0.05em 1px, 0.05em 1px, 1px 1px;
+    -moz-background-size: 0.05em 1px, 0.05em 1px, 1px 1px;
+    background-size: 0.05em 1px, 0.05em 1px, 1px 1px;
+    background-repeat: no-repeat, no-repeat, repeat-x;
+    text-shadow: 0.03em 0 $background-color, -0.03em 0 $background-color, 0 0.03em $background-color, 0 -0.03em $background-color, 0.06em 0 $background-color, -0.06em 0 $background-color, 0.09em 0 $background-color, -0.09em 0 $background-color, 0.12em 0 $background-color, -0.12em 0 $background-color, 0.15em 0 $background-color, -0.15em 0 $background-color;
+    background-position: 0% 93%, 100% 93%, 0% 93%;
+}
+
+.no-tufte-underline:link {
+    background: unset;
+    text-shadow: unset;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    a:link:not(.btn),
+    .tufte-underline,
+    .hover-tufte-underline:hover {
+        background-position-y: 87%, 87%, 87%;
+    }
+}
+
+a:link::selection,
+a:link::-moz-selection {
+    text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
+    background: #b4d5fe;
+}
+
+/***********************
+ * Buttons and borders *
+ ***********************/
+.btn--inverse,
+.page__content img,
+video,
+iframe,
+.author__avatar img {
+    border: 0.5px solid $primary-color;
+    background-color: $background-color;
+}
+
+/*******************************************
+ * Masthead, site title and navigation links
+ *******************************************/
+a.site-title {
+    font-variant: all-small-caps;
+    font-weight: $header-font-weight;
+    .site-subtitle {
+        font-size: $type-size-6;
+        font-style: italic;
+        font-variant: normal;
+        font-variant-numeric: oldstyle-nums;
+    }
+}
+
+/*******************
+ * Header and meta *
+ *******************/
+.page__hero--overlay {
+    .page__title {
+        font-weight: $header-font-weight;
+    }
+    .page__lead {
+        font-style: italic;
+        em {
+            font-style: normal;
+        }
+    }
+    .page__title,
+    .page__lead {
+        text-shadow: 2px 2px 3px #000;
+    }
+    .page__hero-caption {
+        font-weight: $meta-font-weight;
+    }
+}
+
+/***********
+ * Sidebar *
+ ***********/
+.sidebar p,
+.sidebar li,
+nav.toc li,
+nav.toc li a,
+ul.nav__items li .nav__sub-title {
+    font-weight: $meta-font-weight;
+}
+
+nav.toc {
+    h4.nav__title {
+        font-variant: all-small-caps;
+        i {
+            margin-right: $type-size-6;
+        }
+    }
+    li {
+	      font-size: $type-size-6;
+    }
+}
+
+/*******************
+ * Utility classes *
+ *******************/
+// Replicates _base.scss l.235
+div.half img,
+div.third img {
+    @include breakpoint($small) {
+        max-width: calc(50% - 1em);
+    }
+}
+
+div.third img {
+    @include breakpoint($large) {
+        max-width: calc(33.3333% - 0.5em);
+    }
+}
+
+div.align-right figure {
+    margin-top: 0;
+}
+
+/**********************
+ * Archives and grids *
+ **********************/
+h2.archive__item-title,
+.archive__item-excerpt {
+    font-weight: $meta-font-weight;
+}
+
+h2.archive__item-title {
+    @extend .newthought;
+    font-family: $global-font-family;
+	  font-style: normal;
+}
+
+.feature__item--left,
+.feature__item--right {
+    h2.archive__item-title {
+        margin-top: 0;
+    }
+}
+
+h3.archive__subtitle {
+    font-size: $h-size-2;
+    font-weight: $header-font-weight;
+    @include breakpoint($large) {
+        float: none;
+    }
+}
+
+.archive__subtitle {
+    margin-top: 5rem;
+    border-bottom: 0;
+}
+
+.page__share a:link {
+    color: $lighter-gray;
+}
+
+.page__share-title,
+.page__related-title {
+    text-transform: unset;
+    font-family: $global-font-family;
+    font-weight: 400;
+}
+
+.page__footer-follow li,
+.page__footer-follow li strong,
+.page__footer-follow li a,
+.page__footer-copyright,
+ul.social-icons {
+    font-weight: $meta-font-weight;
+    text-transform: unset;
+}
+// vim: set shiftwidth=4 foldmethod=indent :

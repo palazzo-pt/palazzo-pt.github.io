@@ -1,0 +1,200 @@
+---
+---
+
+/*
+ * This SASS file customizes the appearance of a Reveal.js slideshow generated
+ * from Pandoc and hosted via Jekyll. It requires a _settings.scss file
+ * declaring custom variables and font-faces. It assumes
+ * reveal.js is loaded as a submodule at the root of the repo. The triple
+ * dashes at the top are there for compatibility with Jekyll.
+ */
+
+// First, load default mixins and settings -----
+// Then override theme settings ----------------
+@import "slides/reveal.js/css/theme/template/mixins",
+        "slides/reveal.js/css/theme/template/settings",
+        "revealjs-settings",
+        "slides/reveal.js/css/theme/template/theme";
+
+// Start with settings that apply everywhere ---
+html {
+  font-size: $mainFontSize;
+  font-variant: oldstyle-nums proportional-nums;
+}
+
+.reveal {
+  .smallcaps { // Declare before @extends that depend on it.
+    font-variant: all-small-caps;
+  }
+  // Elements ------------------------------------
+  // Provide a soft background knockout that disappears
+  // in front of the default background color.
+  blockquote,
+  div.fragment,
+  div.subfigures > p,
+  dl,
+  figcaption,
+  h1, h2,
+  h3, h4, h5,
+  ol, ul,
+  .r-frame,
+  .box {
+    background: transparentize($backgroundColor, 0.3);
+    backdrop-filter: blur(5px);
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  dt, h3, h4, h5 {
+    @extend .smallcaps;
+    font-size: $heading2Size;
+    font-weight: 500;
+  }
+  dd {
+    display: none;
+  }
+  blockquote,
+  ol, ul {
+    font-size: $heading3Size;
+    font-style: normal;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 1.4rem;
+    footer {
+      text-align: right;
+      font-style: italic;
+      cite {
+        font-style: italic;
+      }
+    }
+    li {
+      margin-left: 2rem;
+    }
+  }
+  li::before,
+  td {
+    font-variant: tabular-nums;
+  }
+
+  // Section and heading modifiers ---------------
+  box-shadow: inset 0 0 5em 1em darken($backgroundColor, 0.3);
+  h1, h2 {
+    font-variant: lining-nums proportional-nums titling-caps;
+    text-shadow: $headingTextShadow;
+  }
+  section {
+    &.has-dark-background,
+    &#title-slide {
+      // Force full-height to position subtitle and author correctly.
+      height: 100vh;
+      color: $backgroundColor;
+      * {
+        background: none;
+        border: none;
+        color: $backgroundColor;
+        font-family: $headingFont;
+        font-variant: lining-nums proportional-nums titling-caps;
+        font-weight: $headingFontWeight;
+        letter-spacing: $headingLetterSpacing;
+        text-shadow: $heading1TextShadow;
+        text-transform: $headingTextTransform;
+      }
+      h1 {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 50%;
+      }
+      p.author,
+      p.subtitle {
+        position: fixed;
+        left: 0;
+        right: 0;
+        text-align: center;
+      }
+      p.subtitle {
+        top: 10%;
+      }
+      p.author {
+        bottom: 10%;
+      }
+      p.date {
+        display: none;
+      }
+    }
+    // Make sure images don't overflow their containers.
+    // Give room for 2-line captions @ 1080p.
+    figure,
+    img {
+      object-fit: contain;
+      max-height: calc(100vh - 128px);
+    }
+    // Images that float over other content
+    & > figure {
+      & > img.overlay-slide,
+      & > img.overlay-slide + figcaption {
+        float: right;
+        clear: right;
+        max-width: 25%;
+      }
+    }
+    // Hide single images so we can use data-background-image
+    .slide-bg,
+    .no-slide {
+      iframe,
+      img,
+      video {
+        visibility: hidden;
+        height: 100vh;
+        // Height is required so the slide stretches to the full
+        //  viewport size and the caption is properly positioned.
+      }
+      & + figcaption {
+        position: fixed;
+        bottom: 2.5%;
+        left: 2.5%;
+      }
+    }
+    img.slide-bg {
+      visibility: hidden;
+      height: 100vh;
+    }
+    .subfigures > p:last-of-type {
+      @extend figcaption;
+    }
+  }
+
+  // Classes -------------------------------------
+  // Try to fit columns as best as we can.
+  // Images and captions not doing too well so far.
+  .columns {
+    margin-top: -20px;
+  }
+  .column figure {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+  }
+
+  .epigraph > blockquote > p {
+    font-style: italic;
+  }
+  // Remove background from fragment elements, otherwise we'd have
+  // superimposed semi-transparent backgrounds.
+  .fragment {
+    * {
+      background: transparent;
+    }
+  }
+  // Make bibliography readable. Combine with .allowframebreaks to
+  // split across pages.
+  .references {
+    text-align: left;
+    margin: 0 20%;
+    .csl-entry {
+      padding: 8px 0;
+    }
+  }
+}
+// vim: set foldmethod=indent  shiftwidth=2:
